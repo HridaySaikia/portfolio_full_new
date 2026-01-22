@@ -3,11 +3,12 @@ import { Project } from "@/lib/models/Project";
 import { NextResponse } from "next/server";
 
 // GET /api/projects/:id
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
   await connectDB();
+  const { id } = await params;
 
   try {
-    const project = await Project.findById(params.id);
+    const project = await Project.findById(id);
     if (!project) {
       return NextResponse.json({ error: "Project not found" }, { status: 404 });
     }
@@ -19,8 +20,9 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   }
 }
 // PUT /api/projects/:id
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
   await connectDB();
+  const { id } = await params;
 
   try {
     const body = await req.json();
@@ -34,7 +36,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
     }
 
     const updated = await Project.findByIdAndUpdate(
-      params.id,
+      id,
       {
         title: body.title,
         description: body.description,
@@ -59,11 +61,12 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 
 
 // DELETE /api/projects/:id
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {
   await connectDB();
+  const { id } = await params;
 
   try {
-    const deleted = await Project.findByIdAndDelete(params.id);
+    const deleted = await Project.findByIdAndDelete(id);
 
     if (!deleted) {
       return NextResponse.json({ error: "Project not found" }, { status: 404 });
