@@ -8,9 +8,11 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import BlurBlob from "@/components/BlurBlob";
 
+import { getBaseUrl } from "@/lib/utils";
+
 // ✅ Fetch data on the server
 async function getProfile() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/profile`, {
+  const res = await fetch(`${getBaseUrl()}/api/profile`, {
     // ✅ Enable caching with ISR (revalidate every 60 seconds)
     next: { revalidate: 60 },
   });
