@@ -15,7 +15,7 @@ import { getBaseUrl } from "@/lib/utils";
 // ✅ Fetch data on the server
 async function getProfile() {
   try {
-    const res = await fetch(`/api/profile`, {
+    const res = await fetch(`${getBaseUrl()}/api/profile`, {
       cache: "no-store", // ✅ IMPORTANT
     });
 
