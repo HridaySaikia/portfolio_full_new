@@ -1,4 +1,5 @@
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Skills from "@/components/Skills";
@@ -13,17 +14,23 @@ import { getBaseUrl } from "@/lib/utils";
 
 // ✅ Fetch data on the server
 async function getProfile() {
-  const res = await fetch(`${getBaseUrl()}/api/profile`, {
-    // ✅ Enable caching with ISR (revalidate every 60 seconds)
-    next: { revalidate: 60 },
-  });
-  if (!res.ok) {
-  console.error("Profile fetch failed");
-  return null;
-  }
+  try {
+    const res = await fetch(`${getBaseUrl()}/api/profile`, {
+      cache: "no-store", // ✅ IMPORTANT
+    });
 
-  return res.json();
+    if (!res.ok) {
+      console.error("Profile fetch failed");
+      return null;
+    }
+
+    return res.json();
+  } catch (err) {
+    console.error("Profile fetch error:", err);
+    return null;
+  }
 }
+
 
 export default async function Home() {
   const profile = await getProfile();
@@ -40,7 +47,7 @@ export default async function Home() {
       <div className="relative pt-20">
         <main className="min-h-screen bg-transparent text-white px-4 md:px-12">
           <Navbar />
-          <Hero profile={profile} /> {/* ✅ Pass pre-fetched data */}
+          {profile !== undefined && <Hero profile={profile} />} {/* ✅ Pass pre-fetched data */}
           <Skills />
           <Projects />
           <Education />
