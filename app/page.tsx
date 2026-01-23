@@ -10,21 +10,19 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import BlurBlob from "@/components/BlurBlob";
 
-import { getBaseUrl } from "@/lib/utils";
+import { connectDB } from "@/lib/db";
+import { Profile as ProfileModel } from "@/lib/models/Profile";
 
-// ✅ Fetch data on the server
+// ✅ Fetch data directly from DB (better for build & performance)
 async function getProfile() {
   try {
-    const res = await fetch(`${getBaseUrl()}/api/profile`, {
-      cache: "no-store", // ✅ IMPORTANT
-    });
+    await connectDB();
+    const profile = await ProfileModel.findOne().lean();
 
-    if (!res.ok) {
-      console.error("Profile fetch failed");
-      return null;
-    }
+    if (!profile) return null;
 
-    return res.json();
+    // Serialize for client component
+    return JSON.parse(JSON.stringify(profile));
   } catch (err) {
     console.error("Profile fetch error:", err);
     return null;

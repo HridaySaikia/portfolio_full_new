@@ -60,19 +60,19 @@ export default function SkillsAdmin() {
 
                   <div className="flex gap-2">
                    <Link
-    href={`/admin/skills/${s._id}/edit`}
-    className="text-cyan-400 hover:text-cyan-300"
-    title="Edit"
-  >
-    <Pencil size={16} />
-  </Link>
-  <button
-    onClick={() => deleteSkill(s._id)}
-    className="text-red-400 hover:text-red-300"
-    title="Delete"
-  >
-    <Trash2 size={16} />
-  </button>
+                    href={`/admin/skills/${s._id}/edit`}
+                    className="text-cyan-400 hover:text-cyan-300"
+                    title="Edit"
+                  >
+                    <Pencil size={16} />
+                  </Link>
+                  <button
+                    onClick={() => deleteSkill(s._id)}
+                    className="text-red-400 hover:text-red-300"
+                    title="Delete"
+                  >
+                    <Trash2 size={16} />
+                  </button>
                   </div>
                 </li>
               ))}

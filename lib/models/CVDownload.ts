@@ -53,6 +53,4 @@ const CVDownloadSchema = new mongoose.Schema<ICVDownload>(
 );
 
 // Index for faster email lookups
-CVDownloadSchema.index({ email: 1 });
-
 export default mongoose.models.CVDownload || mongoose.model<ICVDownload>('CVDownload', CVDownloadSchema);
