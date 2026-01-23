@@ -47,7 +47,7 @@ export default async function Home() {
       <div className="relative pt-20">
         <main className="min-h-screen bg-transparent text-white px-4 md:px-12">
           <Navbar />
-          {profile !== undefined && <Hero profile={profile} />} {/* ✅ Pass pre-fetched data */}
+          <Hero profile={profile} /> {/* ✅ Pass pre-fetched data */}
           <Skills />
           <Projects />
           <Education />

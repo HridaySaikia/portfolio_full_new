@@ -2,6 +2,8 @@ import { connectDB } from "@/lib/db";
 import { Skill } from "@/lib/models/Skill";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   await connectDB();
   const skills = await Skill.find().sort({ createdAt: -1 });

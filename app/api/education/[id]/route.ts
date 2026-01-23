@@ -2,6 +2,8 @@ import { connectDB } from "@/lib/db";
 import { Education } from "@/lib/models/Education";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
   await connectDB();
   const { id } = await params;

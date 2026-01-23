@@ -2,6 +2,8 @@ import { connectDB } from "@/lib/db";
 import { Education } from "@/lib/models/Education";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req: Request) {
   await connectDB();
   const body = await req.json();
