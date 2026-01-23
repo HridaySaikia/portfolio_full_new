@@ -17,7 +17,11 @@ async function getProfile() {
     // ✅ Enable caching with ISR (revalidate every 60 seconds)
     next: { revalidate: 60 },
   });
-  if (!res.ok) throw new Error("Failed to fetch profile");
+  if (!res.ok) {
+  console.error("Profile fetch failed");
+  return null;
+  }
+
   return res.json();
 }
 
